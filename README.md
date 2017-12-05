@@ -17,12 +17,12 @@ This plugin will, over time, have more uses in blocking certain undesirable effe
 
 These cvars are present in the plugin and can be edited from the configuration file:
 
-sm_tf2s_sanitizer_enabled - Enable/Disable TF2 Sanitization plugin. Default value: "1"
-sm_tf2s_remove_bread - Enable/Disable removal of bread from teleporters. Default value: "1"
-sm_tf2s_remove_pumpkin_loot - Enable/Disable removal of pumpkin loot/candy dropped from players in halloween mode. Default value: "1"
-sm_tf2s_remove_souls - Enable/Disable removal of halloween souls (removes sound as well). Default value: "1"
-sm_tf2s_remove_thriller_taunt - Enable/Disable the thriller taunt from being activated. Default value: "1"
-sm_tf2s_replace_hkits - Enable/Disable replacement of holiday healthkits with normal healthkits. Default value: "1"
+-sm_tf2s_sanitizer_enabled - Enable/Disable TF2 Sanitization plugin. Default value: "1"
+-sm_tf2s_remove_bread - Enable/Disable removal of bread from teleporters. Default value: "1"
+-sm_tf2s_remove_pumpkin_loot - Enable/Disable removal of pumpkin loot/candy dropped from players in halloween mode. Default value: "1"
+-sm_tf2s_remove_souls - Enable/Disable removal of halloween souls (removes sound as well). Default value: "1"
+-sm_tf2s_remove_thriller_taunt - Enable/Disable the thriller taunt from being activated. Default value: "1"
+-sm_tf2s_replace_hkits - Enable/Disable replacement of holiday healthkits with normal healthkits. Default value: "1"
 
 # Installation
 
