@@ -1,0 +1,35 @@
+"Games"
+{
+	"tf"
+	{
+		"Signatures"
+		{
+			"ThrillerTaunt"
+			{
+				"library"		"server"
+				"linux"		"\x0F\x85\x2A\x2A\x2A\x2A\xE8\x2A\x2A\x2A\x2A\xF3\x0F\x10\x0D\x2A\x2A\x2A\x2A\xF3\x0F\x2A\xC0\xF3\x0F\x59\x05\x2A\x2A\x2A\x2A\x0F\x2F\xC8\x0F\x86"
+				"windows"		"\xF3\x0F\x59\x2A\x2A\x2A\x2A\x2A\x0F\x2F\x2A\x76\x2A\xD9\xE8\x51"
+			}
+		}
+		"Addresses"
+		{
+			"ThrillerTaunt"
+			{
+				"signature"	"ThrillerTaunt"
+			}
+		}
+		"Offsets"
+		{
+			"Offset_ThrillerTaunt"
+			{
+				"linux"		"35"
+				"windows"		"11"
+			}
+			"Payload_ThrillerTaunt"
+			{
+				"linux"		"129"		// NEAR JNO
+				"windows"		"113"		// SHORT JNO
+			}
+		}
+	}
+}
