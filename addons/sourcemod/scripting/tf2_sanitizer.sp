@@ -50,13 +50,13 @@ along with this plugin.  If not, see <http://www.gnu.org/licenses/>.
 #define PLUGIN_VERSION "1.3.0"
 
 // Handles
-ConVar cvar_TFSHolidayMode;
-ConVar cvar_TFSSanitizerEnabled;
-ConVar cvar_TFSRemoveBread;
-ConVar cvar_TFSReplaceHKits;
-ConVar cvar_TFSRemoveSouls;
-ConVar cvar_TFSRemovePumpkinLoot;
-ConVar cvar_TFSRemoveThrillerTaunt;
+ConVar cvar_TFSHolidayMode = null;
+ConVar cvar_TFSSanitizerEnabled = null;
+ConVar cvar_TFSRemoveBread = null;
+ConVar cvar_TFSReplaceHKits = null;
+ConVar cvar_TFSRemoveSouls = null;
+ConVar cvar_TFSRemovePumpkinLoot = null;
+ConVar cvar_TFSRemoveThrillerTaunt = null;
 
 // Holiday-related
 int g_iHolidayMode;
