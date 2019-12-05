@@ -1,7 +1,7 @@
 # TF2Sanitizer
 TF2 plugin that cleans up certain entities/actions from happening. 
 
-This plugin was primarily created for the Halloween holiday mode in TF2 in order to allow players to use their halloween items/effects without all the more annoying aspects of the mode. It also cleans up other things such as teleporter bread.
+This plugin was primarily created for the Halloween holiday mode in TF2 in order to allow players to use their halloween items/effects/cosmetics without all the more annoying aspects of the mode. It also cleans up other things such as teleporter bread as well.
 
 This plugin does the following:
 
@@ -15,7 +15,6 @@ This plugin does the following:
 This plugin will, over time, have more uses in blocking certain undesirable effects from the game as they come up. It is also configurable, so you can pick and choose what to remove and what to keep.
 
 # Cvars
-
 These cvars are present in the plugin and can be edited from the configuration file:
 
 - `sm_tf2s_sanitizer_enabled` - Enable/Disable TF2 Sanitization plugin. Default value: "1"
@@ -26,10 +25,9 @@ These cvars are present in the plugin and can be edited from the configuration f
 - `sm_tf2s_replace_hkits` - Enable/Disable replacement of holiday healthkits with normal healthkits. Default value: "1"
 
 # Installation
-
 All relevant files/gamedata have been included in the projects, you will simply need to do the following to install:
 
-1.) Download the files.
+1.) Download the files (including the gamedata).
 2.) Copy all files into relevant directories (all directories are setup the same as they appear in the normal tf2/sourcemod install).
 3.) Configure the plugin via plugins.tf2sanitizer.cfg.
 4.) Run server and have fun!
@@ -37,10 +35,15 @@ All relevant files/gamedata have been included in the projects, you will simply 
 Not very difficult, especially if you have installed Sourcemod/metamod before. If this is your first time, please consult the sourcemod wiki for how to install plugins/sourcemod/metamod.
 
 # Finally
-
 Support for this plugin will be done on a case by case basis when I feel like it. Please don't add me to get an update for the plugin as the code files are there to edit/use.
 
 # Changelog
+1.3.0 Update (12-04-2019)
+-----------------
+- Updated plugin code to use the new syntax.
+- Removed a few debug messages from the plugin.
+- Compiled plugins for SM 1.10
+
 1.2 Update/Release (02-02-2019)
 -----------------
 - Public Release. Testing was done by me on a few test servers to verify how well it works.

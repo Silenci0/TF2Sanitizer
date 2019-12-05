@@ -41,55 +41,63 @@ along with this plugin.  If not, see <http://www.gnu.org/licenses/>.
 #include <sdktools>
 #include <sdkhooks>
 
+#pragma newdecls required
+
 // Defines
 #define HALLOWEEN_MODE 2
 #define FULLMOON_MODE 9
 #define FILE_GAMEDATA "thriller.plugin"
-#define PLUGIN_VERSION "1.2"
+#define PLUGIN_VERSION "1.3.0"
 
 // Handles
-new Handle:cvar_TFSHolidayMode = INVALID_HANDLE;
-new Handle:cvar_TFSSanitizerEnabled = INVALID_HANDLE;
-new Handle:cvar_TFSRemoveBread = INVALID_HANDLE;
-new Handle:cvar_TFSReplaceHKits = INVALID_HANDLE;
-new Handle:cvar_TFSRemoveSouls = INVALID_HANDLE;
-new Handle:cvar_TFSRemovePumpkinLoot = INVALID_HANDLE;
-new Handle:cvar_TFSRemoveThrillerTaunt = INVALID_HANDLE;
+ConVar cvar_TFSHolidayMode;
+ConVar cvar_TFSSanitizerEnabled;
+ConVar cvar_TFSRemoveBread;
+ConVar cvar_TFSReplaceHKits;
+ConVar cvar_TFSRemoveSouls;
+ConVar cvar_TFSRemovePumpkinLoot;
+ConVar cvar_TFSRemoveThrillerTaunt;
 
 // Holiday-related
-new g_vHolidayMode;
+int g_iHolidayMode;
 
 // Thriller taunt
-new Address:g_addrPatch = Address_Null;
-new g_iMemoryPatched = 0;
-new bool:g_bThrillerSet = true;
+Address g_addrPatch = Address_Null;
+int g_iMemoryPatched = 0;
+bool g_bThrillerSet = true;
 
 ///////////////////////////////////
 //===============================//
 //=====[ PLUGIN INFO ]===========//
 //===============================//
 ///////////////////////////////////
-public Plugin:myinfo =
+public Plugin myinfo =
 {
     name = "[TF2] Sanitizer",
     author = "Mr. Silence",
     description = "Removes/replaces various holiday items, taunts, etc.",
     version = PLUGIN_VERSION,
-    url = "www.removetftrash.org"
+    url = "https://github.com/Silenci0/TF2Sanitizer"
 }
 
-public OnPluginStart()
+public void OnPluginStart()
 {
     // Grab holiday convar for later
     cvar_TFSHolidayMode = FindConVar("tf_forced_holiday");
     
     // Plugin convars
-    cvar_TFSSanitizerEnabled    = CreateConVar("sm_tf2s_sanitizer_enabled", "1", "Enable/Disable TF2 Sanitization plugin. \nEnable = 1  \nDisable = 0", FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
-    cvar_TFSRemoveBread         = CreateConVar("sm_tf2s_remove_bread", "1", "Enable/Disable removal of bread from teleporters. \nEnable = 1  \nDisable = 0", FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
-    cvar_TFSReplaceHKits        = CreateConVar("sm_tf2s_replace_hkits", "1", "Enable/Disable replacement of holiday healthkits with normal healthkits. \nEnable = 1  \nDisable = 0", FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
-    cvar_TFSRemoveSouls         = CreateConVar("sm_tf2s_remove_souls", "1", "Enable/Disable removal of halloween souls (removes sound as well). \nEnable = 1  \nDisable = 0", FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
-    cvar_TFSRemovePumpkinLoot   = CreateConVar("sm_tf2s_remove_pumpkin_loot", "1", "Enable/Disable removal of pumpkin loot/candy dropped from players in halloween mode. \nEnable = 1  \nDisable = 0", FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
-    cvar_TFSRemoveThrillerTaunt = CreateConVar("sm_tf2s_remove_thriller_taunt", "1", "Enable/Disable the thriller taunt from being activated. \nEnable = 1  \nDisable = 0", FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
+    cvar_TFSSanitizerEnabled    = CreateConVar("sm_tf2s_sanitizer_enabled", "1", "Enable/Disable TF2 Sanitization plugin. \nEnable = 1  \nDisable = 0", 
+                                                FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
+    cvar_TFSRemoveBread         = CreateConVar("sm_tf2s_remove_bread", "1", "Enable/Disable removal of bread from teleporters. \nEnable = 1  \nDisable = 0", 
+                                                FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
+    cvar_TFSReplaceHKits        = CreateConVar("sm_tf2s_replace_hkits", "1", "Enable/Disable replacement of holiday healthkits with normal healthkits. \nEnable = 1  \nDisable = 0", 
+                                                FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
+    cvar_TFSRemoveSouls         = CreateConVar("sm_tf2s_remove_souls", "1", "Enable/Disable removal of halloween souls (removes sound as well). \nEnable = 1  \nDisable = 0", 
+                                                FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
+    cvar_TFSRemovePumpkinLoot   = CreateConVar("sm_tf2s_remove_pumpkin_loot", "1", "Enable/Disable removal of pumpkin loot/candy dropped from players in halloween mode. \nEnable = 1  \nDisable = 0", 
+                                                FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
+    cvar_TFSRemoveThrillerTaunt = CreateConVar("sm_tf2s_remove_thriller_taunt", "1", "Enable/Disable the thriller taunt from being activated. \nEnable = 1  \nDisable = 0", 
+                                                FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, true, 1.0);
 
     // Plugin version
     CreateConVar("sm_tf2s_sanitizer_version", PLUGIN_VERSION, "[TF2] TF2 Sanitizer Version.", FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY|FCVAR_DONTRECORD);
@@ -98,7 +106,7 @@ public OnPluginStart()
     AutoExecConfig(true, "plugin.tf2sanitizer");
 }
 
-public OnConfigsExecuted()
+public void OnConfigsExecuted()
 {
     // Enable the thriller taunt after configs have loaded, then set it 
     // so that we never run this every time OnConfigsExecuted is run.
@@ -115,7 +123,7 @@ public OnConfigsExecuted()
     }
 }
 
-public OnEntityCreated(entity, const String:classname[])
+public void OnEntityCreated(int entity, const char[] classname)
 {
     if (GetConVarBool(cvar_TFSSanitizerEnabled))
     {   
@@ -124,14 +132,13 @@ public OnEntityCreated(entity, const String:classname[])
             // Remove bread
             if (GetConVarBool(cvar_TFSRemoveBread) && StrContains(classname, "bread") && StrEqual(classname, "prop_physics_override"))
             {
-                LogMessage("DEBUG: sees bread");
                 SDKHook(entity, SDKHook_SpawnPost, KillEntityOnSpawn);
             }
         
             // If its not bread, its probably a holiday item. 
             // Find out which mode we have so we can kill the thing!
-            g_vHolidayMode = GetConVarInt(cvar_TFSHolidayMode);
-            if (g_vHolidayMode == HALLOWEEN_MODE || g_vHolidayMode == FULLMOON_MODE)
+            g_iHolidayMode = GetConVarInt(cvar_TFSHolidayMode);
+            if (g_iHolidayMode == HALLOWEEN_MODE || g_iHolidayMode == FULLMOON_MODE)
             {
                 // Replace healthkit
                 if (GetConVarBool(cvar_TFSReplaceHKits) && strncmp(classname, "item_healthkit_", 15) == 0)
@@ -161,7 +168,7 @@ public OnEntityCreated(entity, const String:classname[])
 //=========================================//
 /////////////////////////////////////////////
 // Specific to health kits. Replaces them with the normal version of healthkits
-public OnHealthKitSpawned(entity)
+public void OnHealthKitSpawned(int entity)
 {
 	SetEntProp(entity, Prop_Send, "m_nModelIndexOverrides", 0, _, 2);
 }
@@ -169,22 +176,21 @@ public OnHealthKitSpawned(entity)
 // Specifically for any entities that have model data.
 // In this case, we are suing it for both bread and pumpkin loot entities since both 
 // are physics override entities that randomly spawn when triggered.
-public KillEntityOnSpawn(entity)
+public void KillEntityOnSpawn(int entity)
 {
     // Get the model name, we'll need it later
-    decl String:m_ModelName[PLATFORM_MAX_PATH];
+    char m_ModelName[PLATFORM_MAX_PATH];
     GetEntPropString(entity, Prop_Data, "m_ModelName", m_ModelName, sizeof(m_ModelName));
 
     // Always remove bread. ALWAYS
     if (StrContains(m_ModelName, "c_bread_") != -1 || StrContains(m_ModelName, "pumpkin_loot") != -1)
     {
-        LogMessage("DEBUG: Kills entity");
         AcceptEntityInput(entity, "Kill");
     }
 }
 
 // This will remove entities when they spawn. This will be more generic so we can kill tons of trash
-public KillSoulsOnSpawn(entity)
+public void KillSoulsOnSpawn(int entity)
 {
     AcceptEntityInput(entity, "Kill");
 }
@@ -198,7 +204,7 @@ public KillSoulsOnSpawn(entity)
 // NOTE: All code here came from the thriller.sp file from https://forums.alliedmods.net/showthread.php?t=171343        //
 // This requires gamedata and should be checked regularly to ensure optimial performance                                //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-public OnPluginEnd()
+public void OnPluginEnd()
 {
 	// Assuming the thriller taunt was enabled already, once the plugin ends (ie: when we kill/reset the server)
     // We will disable the thriller taunt in order to release the address.
@@ -210,13 +216,13 @@ public OnPluginEnd()
 }
 
 // Enable the patch to remove the thriller taunt, this will check several pieces of info prior to patching
-Patch_Enable()
+void Patch_Enable()
 {
     g_addrPatch = Address_Null;
     g_iMemoryPatched = 0;
 	
     // The "tf" in the gamedata probably makes game check redundant
-    decl String:strGame[10];
+    char strGame[10];
     GetGameFolderName(strGame, sizeof(strGame));
     if(strcmp(strGame, "tf") != 0)
     {
@@ -225,7 +231,7 @@ Patch_Enable()
     }
 
     // Find our gamedata file, if it exists
-    new Handle:hGamedata = LoadGameConfigFile(FILE_GAMEDATA);
+    Handle hGamedata = LoadGameConfigFile(FILE_GAMEDATA);
     if(hGamedata == INVALID_HANDLE)
     {
         LogMessage("Failed to load thriller: Missing gamedata/%s.txt.", FILE_GAMEDATA);
@@ -233,7 +239,7 @@ Patch_Enable()
     }
 
     // Find the offset from  our gamedata file, if it exists
-    new iPatchOffset = GameConfGetOffset(hGamedata, "Offset_ThrillerTaunt");
+    int iPatchOffset = GameConfGetOffset(hGamedata, "Offset_ThrillerTaunt");
     if(iPatchOffset == -1)
     {
         LogMessage("Failed to load thriller: Failed to lookup patch offset.");
@@ -242,7 +248,7 @@ Patch_Enable()
     }
 
     // Create the payload for loading to remove the taunt, assuming we can do so
-    new iPayload = GameConfGetOffset(hGamedata, "Payload_ThrillerTaunt");
+    int iPayload = GameConfGetOffset(hGamedata, "Payload_ThrillerTaunt");
     if(iPayload == -1)
     {
         LogMessage("Failed to load thriller: Failed to lookup patch payload.");
@@ -262,14 +268,14 @@ Patch_Enable()
     CloseHandle(hGamedata);
 
     // Patch the triller taunt, disabling it from being activated
-    g_addrPatch += Address:iPatchOffset;
+    g_addrPatch += view_as<Address>(iPatchOffset);
     LogMessage("Patching ThrillerTaunt at address: 0x%.8X..", g_addrPatch);
     g_iMemoryPatched = LoadFromAddress(g_addrPatch, NumberType_Int8);
     StoreToAddress(g_addrPatch, iPayload, NumberType_Int8);
 }
 
 // Disables the the patch used to disable the thriller taunt
-Patch_Disable()
+void Patch_Disable()
 {
     if(g_addrPatch == Address_Null) 
     {
