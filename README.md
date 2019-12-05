@@ -27,10 +27,10 @@ These cvars are present in the plugin and can be edited from the configuration f
 # Installation
 All relevant files/gamedata have been included in the projects, you will simply need to do the following to install:
 
-1.) Download the files (including the gamedata).
-2.) Copy all files into relevant directories (all directories are setup the same as they appear in the normal tf2/sourcemod install).
-3.) Configure the plugin via plugins.tf2sanitizer.cfg.
-4.) Run server and have fun!
+- Download the files (including the gamedata).
+- Copy all files into relevant directories (all directories are setup the same as they appear in the normal tf2/sourcemod install).
+- Configure the plugin via plugins.tf2sanitizer.cfg.
+- Run server and have fun!
 
 Not very difficult, especially if you have installed Sourcemod/metamod before. If this is your first time, please consult the sourcemod wiki for how to install plugins/sourcemod/metamod.
 
@@ -43,6 +43,7 @@ Support for this plugin will be done on a case by case basis when I feel like it
 - Updated plugin code to use the new syntax.
 - Removed a few debug messages from the plugin.
 - Compiled plugins for SM 1.10
+
 
 1.2 Update/Release (02-02-2019)
 -----------------
