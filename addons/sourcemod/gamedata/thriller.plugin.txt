@@ -7,8 +7,8 @@
             "ThrillerTaunt"
             {
                 "library"   "server"
-                "linux"     "\x0F\x85\x2A\x2A\x2A\x2A\xE8\x2A\x2A\x2A\x2A\xF3\x0F\x10\x0D\x2A\x2A\x2A\x2A\xF3\x0F\x2A\xC0\xF3\x0F\x59\x05\x2A\x2A\x2A\x2A\x0F\x2F\xC8\x0F\x86"
-                "windows"   "\xF3\x0F\x59\x2A\x2A\x2A\x2A\x2A\x0F\x2F\x2A\x76\x2A\xD9\xE8\x51"
+                "linux"     "@_ZN9CTFPlayer22ModifyOrAppendCriteriaER14AI_CriteriaSet"
+                "windows"   "\x53\x8B\xDC\x83\xEC\x08\x83\xE4\xF0\x83\xC4\x04\x55\x8B\x6B\x04\x89\x6C\x24\x04\x8B\xEC\x81\xEC\x28\x01\x00\x00\x56\x57\x8B\x7B\x08"
             }
         }
         "Addresses"
@@ -22,12 +22,12 @@
         {
             "Offset_ThrillerTaunt"
             {
-                "linux"     "35"
-                "windows"   "11"
+                "linux"     "2598"
+                "windows"   "3092"
             }
             "Payload_ThrillerTaunt"
             {
-                "linux"     "129"   // NEAR JNO
+                "linux"     "128"   // NEAR JNO
                 "windows"   "113"   // SHORT JNO
             }
         }

@@ -38,6 +38,10 @@ Not very difficult, especially if you have installed Sourcemod/metamod before. I
 Support for this plugin will be done on a case by case basis when I feel like it. Please don't add me to get an update for the plugin as the code files are there to edit/use.
 
 # Changelog
+1.3.0 Gamedata Update (09-06-2021)
+-----------------
+- Updated the gamedata so that it the thriller taunt would be removed properly for Linux servers. Found info about that in this thread: https://forums.alliedmods.net/showthread.php?t=171343
+
 1.3.0 Update (12-04-2019)
 -----------------
 - Updated plugin code to use the new syntax.
