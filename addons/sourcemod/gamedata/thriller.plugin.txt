@@ -22,8 +22,8 @@
         {
             "Offset_ThrillerTaunt"
             {
-                "linux"     "2598"
-                "windows"   "3092"
+                "linux"         "2605"    // A2D
+                "windows"       "3101"    // C1D
             }
             "Payload_ThrillerTaunt"
             {
