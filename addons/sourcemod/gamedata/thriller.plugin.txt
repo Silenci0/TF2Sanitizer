@@ -22,12 +22,12 @@
         {
             "Offset_ThrillerTaunt"
             {
-                "linux"         "2605"    // A2D
-                "windows"       "3101"    // C1D
+                "linux"         "2621"
+                "windows"       "3104"
             }
             "Payload_ThrillerTaunt"
             {
-                "linux"     "128"   // NEAR JNO
+                "linux"     "128"   // NEAR JO
                 "windows"   "113"   // SHORT JNO
             }
         }
